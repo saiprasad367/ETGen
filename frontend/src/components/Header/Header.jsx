@@ -8,7 +8,7 @@ const API = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 
 export default function Header() {
   const { showHindi, toggleHindi } = useStore()
-  const DEMO_MODE = true // Hardcode for demo
+  const DEMO_MODE = false // Hardcode for demo
 
   const injectSignal = async (preset) => {
     try {

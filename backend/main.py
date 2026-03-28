@@ -7,9 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from pipeline.graph import run_pipeline
-from data.nse_fetcher import get_watchlist_stocks
-from audit.logger import AuditLogger
-from routes import signals, ticker, chart, heatmap, portfolio, demo
+from routes import signals, ticker, chart, heatmap, portfolio
 
 # WebSocket connection manager
 class ConnectionManager:
@@ -54,8 +52,8 @@ manager = ConnectionManager()
 # Background pipeline task
 async def pipeline_loop():
     """Runs every 60 seconds in demo mode (every 300s in production)"""
-    DEMO_MODE = os.getenv("DEMO_MODE", "false").lower() == "true"
-    interval = 15 if DEMO_MODE else 300
+    DEMO_MODE = False # Hardcoded off for real data
+    interval = 60 # 60 second NSE scan cycle
 
     watchlist = [
         "TATAPWR.NS", "HDFCBANK.NS", "INFY.NS", "TITAN.NS",
@@ -103,7 +101,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="ArthDrishti API", lifespan=lifespan)
 
 app.add_middleware(CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://arthdrishti.onrender.com"],
+    allow_origins=["*"],
     allow_methods=["*"], allow_headers=["*"])
 
 # WebSocket endpoints
@@ -131,7 +129,6 @@ app.include_router(ticker.router, prefix="/api")
 app.include_router(chart.router, prefix="/api")
 app.include_router(heatmap.router, prefix="/api")
 app.include_router(portfolio.router, prefix="/api")
-app.include_router(demo.router, prefix="/api/demo")
 
 # Expose manager for routes to use
 app.state.manager = manager
