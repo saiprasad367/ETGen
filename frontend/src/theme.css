@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&family=Noto+Sans+Devanagari:wght@400;500&display=swap');
+
+:root {
+  --bg-base: #020b18;
+  --bg-surface: #041527;
+  --bg-elevated: #061e38;
+  --bg-overlay: #0a2647;
+  --grid-line: rgba(0, 180, 255, 0.04);
+  --grid-line-strong: rgba(0, 180, 255, 0.10);
+  --bull: #00e5a0;
+  --bull-dim: rgba(0,229,160,0.08);
+  --bull-glow: rgba(0,229,160,0.15);
+  --bear: #ff3d5a;
+  --bear-dim: rgba(255,61,90,0.08);
+  --neutral: #f0b429;
+  --accent: #00d4ff;
+  --accent-dim: rgba(0,212,255,0.08);
+  --accent-glow: rgba(0,212,255,0.15);
+  --text-primary: #e8f4fd;
+  --text-secondary: #7ea8c9;
+  --text-muted: #3d6480;
+  --text-number: #b8d9f0;
+  --border: rgba(0, 180, 255, 0.10);
+  --border-active: rgba(0, 212, 255, 0.35);
+  --gold: #ffd166;
+  --gold-dim: rgba(255,209,102,0.12);
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'Fira Code', monospace;
+  --font-body: 'DM Sans', sans-serif;
+  --font-hindi: 'Noto Sans Devanagari', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-base);
+  color: var(--text-primary);
+  min-height: 100vh;
+
+  /* Dot-grid background -- the Bloomberg terminal feel */
+  background-image: radial-gradient(var(--grid-line-strong) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-attachment: fixed;
+}
+
+/* Scan line effect */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.4;
+  animation: scan 6s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes scan {
+  0% { top: 0%; }
+  100% { top: 100%; }
+}
+
+/* Number glow for prices */
+.price-number {
+  font-family: var(--font-mono);
+  text-shadow: 0 0 16px currentColor;
+}
+
+/* Signal card glow animation */
+@keyframes card-flash {
+  0% { box-shadow: 0 0 0 1px var(--accent), 0 0 30px var(--accent-glow); }
+  100% { box-shadow: none; }
+}
+.new-signal { animation: card-flash 2s ease-out; }
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-active); border-radius: 2px; }

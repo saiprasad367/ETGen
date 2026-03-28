@@ -1,0 +1,11 @@
+feat: ArthDrishti MVP -- 5-agent AI investment signal pipeline
+
+- LangGraph orchestration: FilingsWatcher -> ChartPatternAI -> BiasGuard -> ExplainerAgent -> Orchestrator
+- BiasGuard: detects 6 cognitive biases (herding, FOMO, recency, anchoring, overconfidence, disposition)
+- Groq Llama 3.3 70B: English + Hindi signal explanations
+- TradingView candlestick charts with pattern overlays
+- D3.js market heatmap + insider network graph
+- WebSocket real-time signal streaming
+- PostgreSQL immutable audit trail for SEBI compliance
+- React + Motion animations, Bloomberg terminal theme
+- 100% free/open-source stack
